@@ -36,6 +36,8 @@ jobs:
       - name: Build Website
         run: |
           rm -rf ./dist
+          chmod +x ./node_modules/tailwindcss/lib/cli.js
+          chmod +x ./node_modules/cpx/bin/cpx
           ./node_modules/tailwindcss/lib/cli.js -i ./src/styles.css -o ./dist/styles.css
           ./node_modules/cpx/bin/cpx "./src/assets/**/*" "./dist/assets"
           ./node_modules/cpx/bin/cpx "./src/**/*.js" "./dist/src"
