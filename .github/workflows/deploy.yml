@@ -1,0 +1,48 @@
+# Workflow to build and deploy the portfolio website to GitHub Pages
+name: Deploy Portfolio to GitHub Pages
+
+# Run this workflow every time a change is pushed to the `main` branch
+on:
+  push:
+    branches:
+      - main
+
+# Allow this job to clone the repo and create a page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Check out the repository code
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Set up Node.js for the build process
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 3. Install project dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. Build the website (creates the `dist` folder)
+      - name: Build Website
+        run: npm run build
+
+      # 5. Upload the `dist` folder as a build artifact
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      # 6. Deploy the artifact to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

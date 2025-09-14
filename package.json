@@ -1,0 +1,18 @@
+{
+  "name": "portfolio-website",
+  "version": "1.0.0",
+  "description": "Personal Website Codebase",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run clean && npm run build:css && npm run copy:assets",
+    "build:css": "tailwindcss -i ./src/styles.css -o ./dist/styles.css",
+    "watch:css": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch",
+    "copy:assets": "cpx \"./src/assets/**/*\" \"./dist/assets\" && cpx \"./src/**/*.js\" \"./dist/src\" && cpx \"./index.html\" \"./dist\"",
+    "clean": "rimraf ./dist"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.4",
+    "cpx": "^1.5.0",
+    "rimraf": "^5.0.5"
+  }
+}
