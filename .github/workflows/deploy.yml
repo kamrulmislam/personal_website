@@ -36,8 +36,10 @@ jobs:
       - name: Build Website
         run: |
           rm -rf ./dist
-          npm run build:css
-          npm run copy:assets
+          npx tailwindcss -i ./src/styles.css -o ./dist/styles.css
+          npx cpx "./src/assets/**/*" "./dist/assets"
+          npx cpx "./src/**/*.js" "./dist/src"
+          npx cpx "./index.html" "./dist"
 
       # 5. Upload the `dist` folder as a build artifact
       - name: Upload Artifact
